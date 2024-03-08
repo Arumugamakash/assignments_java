@@ -12,12 +12,9 @@ public class Ex3 {
 	public static void main(String[] args) {
 		System.out.println("Enter the Number of persons to compare");
 		int person = sc.nextInt();// 3
-		String[][] persons = new String[person + 1][3];
+		String[][] persons = new String[person][3];
 		System.out.println(persons.length);
-		persons[0][0] = "NAME";
-		persons[0][1] = "BMI";
-		persons[0][2] = "REMARK";
-		for (int i = 1; i <= person; i++) {
+		for (int i = 0; i < person; i++) {
 			System.out.println("Enter the Name of person " + i);
 			String personName = sc.next();
 			System.out.println("Enter the person Weight in kg");
@@ -27,14 +24,16 @@ public class Ex3 {
 			height = height / 100;
 			double bmi = weight / (height * height);
 			String person_bmi = String.format("%.2f\n", bmi);
+			bmi = Double.parseDouble(person_bmi);
 			String remark = checkRemark(bmi);
+
 			persons[i][0] = personName;
-			persons[i][1] = person_bmi;
+			persons[i][1] = bmi + "";
 			persons[i][2] = remark;
 
 		}
-		for (int j = 1; j < persons.length; j++) {
-			for (int i = 1; i < persons.length - 1; i++) {
+		for (int j = 0; j < persons.length; j++) {
+			for (int i = 0; i < persons.length - 1; i++) {
 				if (Double.parseDouble(persons[i][1]) < Double.parseDouble(persons[i + 1][1])) {
 					String[] temp = persons[i];
 					persons[i] = persons[i + 1];
@@ -42,15 +41,18 @@ public class Ex3 {
 				}
 			}
 		}
+		System.out.printf("%-15s %-10s %s", "Name", "BMI", "Remarks");
+		System.out.println();
 		for (String[] s : persons) {
-			System.out.println(Arrays.toString(s));
+			System.out.printf("%-15s %-10s %s", s[0], s[1], s[2]);
+			System.out.println();
 		}
 
 	}
 
 	public static String checkRemark(double bmi) {
 		if (bmi < 18.5) {
-			return "u";
+			return "under weight";
 		} else if (bmi >= 18.5 && bmi < 25) {
 			return "Normal";
 		} else if (bmi >= 25 && bmi < 30) {
@@ -62,16 +64,3 @@ public class Ex3 {
 	}
 
 }
-//System.out.print(persons[0][0]+"           ");
-//System.out.print(persons[0][1]+"       ");
-//System.out.print(persons[0][2]+"               ");
-//System.out.println();
-//for (int i = 1; i < persons.length; i++) {
-//	for (int j = 0; j < persons[i].length; j++) {
-//		if (j==0) {
-//			System.out.println(persons[i][j]+s);
-//		}
-//		//System.out.print(persons[i][j]+"     ");
-//	}
-//	System.out.println();
-//}
